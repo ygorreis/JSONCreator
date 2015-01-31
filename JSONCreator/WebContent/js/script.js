@@ -1,32 +1,40 @@
 var JSONApp = angular.module('JSONApp', []);
 
 JSONApp.controller('JSONController', function($scope,$log){
+	$scope.textHome = 'Create JSON dinamically';
+	
+	/*variables to ng-hide*/
 	$scope.blankFields = true;
 	$scope.setNumberOfFields = false;
 	$scope.fillFields = true;
 	$scope.textAreaWithJSON = true;
+	/*end variables to ng-hide*/
 
-	$scope.isSetNumberOfFields = 0;
-	$scope.allFields = [];
+	$scope.allFields = [];	
+	$scope.arrayOfJSONObjects = [];
+	var stringToParseJSON = '';
 
+	/*function to get the total number of fields and set name them*/
 	$scope.submit = function(){
-		$scope.isSetNumberOfFields = $scope.numberOfFields;
+		$scope.textHome = 'Enter the desires fields and after that, fill them.';
 
-		if(angular.isNumber($scope.isSetNumberOfFields)){
+		if(angular.isNumber($scope.numberOfFields)){
 			$scope.setNumberOfFields = true;
 			$scope.blankFields = false;
 			$scope.fields = [];
 
-			for (var i = 1; i <= $scope.isSetNumberOfFields; i++) {
+			for (var i = 1; i <= $scope.numberOfFields; i++) {
 				$scope.fields.push('input_' + i);
 			};
 		}else{
 			console.log('Erro, não é número.');
 		}
 	};
+	/*end function*/
 
+	/*function to show fields // user fill them with real values*/
 	$scope.submit2 = function(){
-		for (var i = 1; i <= $scope.isSetNumberOfFields; i++) {
+		for (var i = 1; i <= $scope.numberOfFields; i++) {
 			$scope.allFields.push(document.getElementsByName('input_' + i)[0].value);
 		};
 
@@ -34,24 +42,23 @@ JSONApp.controller('JSONController', function($scope,$log){
 		$scope.fillFields = false;
 		$scope.textAreaWithJSON = false;		
 	};
+	/*end function*/
 
-	var testeString = '';	
-	$scope.arrayTest = [];
+	/*function to get values of inputs and create json*/
 	$scope.submit3 = function(){
-			testeString += '{';
-			for (var j = 0; j < $scope.isSetNumberOfFields; j++) {
-				if(j == $scope.isSetNumberOfFields - 1){
-					testeString += '"' + $scope.allFields[j] + '"' + ':' + '"' + document.getElementsByName($scope.allFields[j])[0].value + '"';
-					testeString += '}';
-				}else{
-					testeString += '"' + $scope.allFields[j] + '"' + ':' + '"' + document.getElementsByName($scope.allFields[j])[0].value + '"' + ',';
-				}		
-			};			
+		stringToParseJSON += '{';
+		for (var j = 0; j < $scope.numberOfFields; j++) {
+			if(j == $scope.numberOfFields - 1){
+				stringToParseJSON += '"' + $scope.allFields[j] + '"' + ':' + '"' + document.getElementsByName($scope.allFields[j])[0].value + '"';
+				stringToParseJSON += '}';
+			}else{
+				stringToParseJSON += '"' + $scope.allFields[j] + '"' + ':' + '"' + document.getElementsByName($scope.allFields[j])[0].value + '"' + ',';
+			}		
+		};
 		
-		
-		$scope.arrayTest.push(JSON.parse(testeString));
-		testeString = '';
-		$scope.showJSON = JSON.stringify($scope.arrayTest,null,"   ");
+		$scope.arrayOfJSONObjects.push(JSON.parse(stringToParseJSON));
+		$scope.showJSON = JSON.stringify($scope.arrayOfJSONObjects,null,"   ");
+		stringToParseJSON = '';
 	};
-
+	/*end function*/
 });

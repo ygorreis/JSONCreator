@@ -1,39 +1,40 @@
 <html ng-app="JSONApp">
 <head>
 	<meta charset="utf-8"/>
-	<title>Create JSON</title>
+	<title>makeJSON.io</title>
 	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/angular.min.js.map"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body ng-controller="JSONController">
 	<hgroup>
-		<h3>Create JSON online dinamically</h3>
-		<h5>Enter the desires fields and after that, fill them.</h5>
+		<h2>{{textHome}}</h2>
 	</hgroup>
 
 	<section ng-hide="setNumberOfFields">
 		<form ng-submit="submit()">
 			<input type="number" ng-model="numberOfFields" class="fields" min="1" placeholder="How many fields JSON will have?">
-			<input type="submit" value="Submit">
+			<br>
+			<input type="submit" value="Submit" class="submitButton">
 		</form>
 	</section>
 
 	<section ng-hide="blankFields">
 		<form name="myForm" ng-submit="submit2()">
 			<input type="text" class="fields" ng-repeat="field in fields" name="{{field}}" placeholder="Type the attribute name {{$index + 1}} here">
-			<input type="submit" value="Submit">
+			<br>
+			<input type="submit" value="Submit" class="submitButton">
 		</form>
 	</section>
 
 	<section ng-hide="fillFields" ng-submit="submit3()">
 		<form name="myForm2">
 			<input type="text" class="fields" ng-repeat="field in allFields" name="{{field}}" placeholder="Type the {{field}} here">
-			<input type="submit" value="Submit">
-			<input type="reset" value="Adicionar outro">
+			<br>
+			<span>{{errorMessage}}</span>
+			<input type="submit" value="Submit" class="submitButton">
+			<input type="reset" value="Increase JSON" class="submitButton">
 		</form>
-		
 	</section>
 
 	<section ng-hide="textAreaWithJSON">
