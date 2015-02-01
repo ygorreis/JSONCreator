@@ -13,12 +13,13 @@ JSONApp.controller('JSONController', function($scope,$log){
 	$scope.allFields = [];	
 	$scope.arrayOfJSONObjects = [];
 	var stringToParseJSON = '';
+	$scope.attributeDuplicated = '';
 
 	/*function to get the total number of fields and set name them*/
 	$scope.submit = function(){
-		$scope.textHome = 'Enter the desires fields and after that, fill them.';
-
 		if(angular.isNumber($scope.numberOfFields)){
+			$scope.textHome = 'Enter the desires fields and after that, fill them.';
+			$scope.errorMessage = '';
 			$scope.setNumberOfFields = true;
 			$scope.blankFields = false;
 			$scope.fields = [];
@@ -27,7 +28,7 @@ JSONApp.controller('JSONController', function($scope,$log){
 				$scope.fields.push('input_' + i);
 			};
 		}else{
-			console.log('Erro, não é número.');
+			$scope.errorMessage = 'Sorry! Type a real number and dont inspect element more. :P';
 		}
 	};
 	/*end function*/
@@ -38,9 +39,17 @@ JSONApp.controller('JSONController', function($scope,$log){
 			$scope.allFields.push(document.getElementsByName('input_' + i)[0].value);
 		};
 
-		$scope.blankFields = true;
-		$scope.fillFields = false;
-		$scope.textAreaWithJSON = false;		
+		if (!checkSameField()) {
+			$scope.errorMessage = 'Ooops!.. Something wrong. The field ' + '"' + $scope.attributeDuplicated + '"' + ' was duplicate.';
+			for (var i = 0; i < $scope.numberOfFields; i++) {
+				$scope.allFields.pop();
+			};
+		}else{		
+			$scope.blankFields = true;
+			$scope.fillFields = false;
+			$scope.textAreaWithJSON = false;
+			$scope.textHome = 'Its time. Fill the fields and make your JSON.';	
+		};		
 	};
 	/*end function*/
 
@@ -61,4 +70,21 @@ JSONApp.controller('JSONController', function($scope,$log){
 		stringToParseJSON = '';
 	};
 	/*end function*/
+
+	function checkSameField(){
+		for (var i = 0; i < $scope.numberOfFields; i++) {
+			var stringAux = $scope.allFields[i];
+			var stringAuxCount = 0;
+			for (var j = 0; j < $scope.numberOfFields; j++) {
+				if (angular.equals(stringAux,$scope.allFields[j])) {
+					stringAuxCount++;
+					if (stringAuxCount >= 2) {
+						$scope.attributeDuplicated = $scope.allFields[j];
+						return false;
+					};
+				};
+			};
+		};
+		return true;
+	};
 });
