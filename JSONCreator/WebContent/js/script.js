@@ -8,6 +8,7 @@ JSONApp.controller('JSONController', function($scope,$log){
 	$scope.setNumberOfFields = false;
 	$scope.fillFields = true;
 	$scope.textAreaWithJSON = true;
+	$scope.showMessageError = true;
 	/*end variables to ng-hide*/
 
 	$scope.allFields = [];	
@@ -18,6 +19,7 @@ JSONApp.controller('JSONController', function($scope,$log){
 	/*function to get the total number of fields and set name them*/
 	$scope.submit = function(){
 		if(angular.isNumber($scope.numberOfFields)){
+			$scope.showMessageError = true;
 			$scope.textHome = 'Enter the desires fields and after that, fill them.';
 			$scope.errorMessage = '';
 			$scope.setNumberOfFields = true;
@@ -28,7 +30,8 @@ JSONApp.controller('JSONController', function($scope,$log){
 				$scope.fields.push('input_' + i);
 			};
 		}else{
-			$scope.errorMessage = 'Sorry! Type a real number and dont inspect element more. :P';
+			$scope.errorMessage = 'Sorry! Type a real number and dont inspect element more. :)';
+			$scope.showMessageError = false;
 		}
 	};
 	/*end function*/
@@ -40,11 +43,13 @@ JSONApp.controller('JSONController', function($scope,$log){
 		};
 
 		if (!checkSameField()) {
+			$scope.showMessageError = false;
 			$scope.errorMessage = 'Ooops!.. Something wrong. The field ' + '"' + $scope.attributeDuplicated + '"' + ' was duplicate.';
 			for (var i = 0; i < $scope.numberOfFields; i++) {
 				$scope.allFields.pop();
 			};
-		}else{		
+		}else{
+			$scope.showMessageError = true;		
 			$scope.blankFields = true;
 			$scope.fillFields = false;
 			$scope.textAreaWithJSON = false;
