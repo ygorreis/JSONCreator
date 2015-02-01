@@ -1,5 +1,18 @@
+@font-face{
+	font-family: Robot;
+	src: url(Roboto-Thin.ttf);
+}
+
 body{
 	background-color: #F5F8DE;
+}
+
+p, 
+h2, 
+input[placeholder],
+input[type=reset],
+input[type=submit]{
+	font-family: Robot;
 }
 
 hgroup{
@@ -10,8 +23,8 @@ hgroup{
 }
 
 textarea{
-	width: 300px; 
-	height: 150px;
+	width: 450px; 
+	height: 75%;
 
 }
 
@@ -42,4 +55,21 @@ section form{
 
 input[type="reset"]{
 	width: 250px;
+}
+
+section:nth-child(4){
+	top: 10%;
+	width: 50%;
+	display: block;
+	position: relative;
+	float: left;
+}
+
+section:nth-child(5){
+	top: 10%;
+	margin-right: 5px;
+	display: block;
+	position: relative;
+	float: right;
+	width: auto;
 }
