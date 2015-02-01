@@ -25,7 +25,14 @@ hgroup{
 textarea{
 	width: 450px; 
 	height: 75%;
-
+	border:none;
+	background-color: white;
+	resize: none;
+}
+#jsonFormatted::-webkit-input-placeholder{
+	font-family: Robot;
+	padding: 15px 0 0 15px;
+	font-size: 100%;
 }
 
 section{
@@ -36,21 +43,6 @@ section{
 
 section form{
 	text-align: center;
-}
-
-.fields, .submitButton{
-	width: 400px;
-	height: 50px;
-	margin: 5px;
-	text-align: center;
-	font-size: 16pt;
-	border: none;
-}
-
-.submitButton{
-	background-color: white;
-	border: none;
-	width: 100px;
 }
 
 input[type="reset"]{
@@ -72,4 +64,32 @@ section:nth-child(5){
 	position: relative;
 	float: right;
 	width: auto;
+}
+
+.fields, .submitButton{
+	width: 400px;
+	height: 50px;
+	margin: 5px;
+	text-align: center;
+	font-size: 16pt;
+	border: none;
+}
+
+.submitButton{
+	background-color: white;
+	border: none;
+	width: 100px;
+}
+
+.errorMessage{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 25px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	border-radius: 3px;
+	height: 50px;
+	width: 45%;
 }
