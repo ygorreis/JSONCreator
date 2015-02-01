@@ -1,7 +1,7 @@
 <html ng-app="JSONApp">
 <head>
 	<meta charset="utf-8"/>
-	<title>makeJSON.io</title>
+	<title>createJSON.io</title>
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -15,7 +15,7 @@
 		<form ng-submit="submit()">
 			<input type="number" ng-model="numberOfFields" class="fields" min="1" placeholder="How many fields JSON will have?" required>
 			<br>
-			<p>{{errorMessage}}</p>
+			<p class="errorMessage" ng-hide="showMessageError">{{errorMessage}}</p>
 			<input type="submit" value="Submit" class="submitButton">
 		</form>
 	</section>
@@ -24,7 +24,7 @@
 		<form name="myForm" ng-submit="submit2()">
 			<input type="text" class="fields" ng-repeat="field in fields" name="{{field}}" placeholder="Type the attribute name {{$index + 1}} here" required>
 			<br>
-			<p>{{errorMessage}}</p>
+			<p class="errorMessage" ng-hide="showMessageError">{{errorMessage}}</p>
 			<input type="submit" value="Submit" class="submitButton">
 		</form>
 	</section>
@@ -39,7 +39,7 @@
 	</section>
 
 	<section ng-hide="textAreaWithJSON">
-		<textarea id="jsonFormatted" ng-bind="showJSON">
+		<textarea id="jsonFormatted" ng-bind="showJSON" placeholder="You will see your JSON here." disabled>
 		</textarea>
 	</section>
 </body>
